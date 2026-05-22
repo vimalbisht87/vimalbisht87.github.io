@@ -89,6 +89,129 @@
         /* Scroll Down Icon */
         .scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: var(--text-muted); font-size: 1.5rem; animation: drop 1.5s infinite; }
 
+        /* ========== RESPONSIVE DESIGN ========== */
+        
+        /* Tablet & Small Screens (768px aur neeche) */
+        @media (max-width: 1024px) {
+            .container { width: 95%; padding: 0 15px; }
+            section { padding: 60px 0; }
+            .section-title { font-size: 2rem; margin-bottom: 40px; }
+            
+            .hero-wrapper { grid-template-columns: 1fr; gap: 30px; }
+            .hero-photo-frame { width: 280px; height: 280px; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .hero-text h2 { font-size: 0.95rem; }
+            
+            .skills-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+            
+            .timeline { padding-left: 30px; }
+            .timeline-content { padding: 20px; }
+            
+            .flow-container { height: 250px; font-size: 0.7rem; }
+            .flow-node { width: 80px; height: 80px; }
+            .flow-node i { font-size: 1.5rem; }
+            
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-card { padding: 20px; }
+        }
+        
+        /* Mobile Phones (768px aur neeche) */
+        @media (max-width: 768px) {
+            html { font-size: 14px; }
+            .container { width: 100%; padding: 0 15px; }
+            section { padding: 50px 0; }
+            
+            /* Header & Nav */
+            nav { flex-direction: column; gap: 15px; }
+            .menu-toggle { display: block; }
+            .nav-links { gap: 15px; flex-direction: column; text-align: center; font-size: 0.8rem; }
+            
+            /* Hero Section */
+            #hero { height: auto; min-height: 100vh; margin-top: 100px; padding: 20px 0; }
+            .hero-wrapper { grid-template-columns: 1fr; }
+            .hero-photo-frame { width: 250px; height: 250px; margin: 0 auto 30px; }
+            .hero-photo-frame::before { inset: -10px; }
+            .hero-photo-frame::after { inset: -20px; }
+            
+            .hero-text h1 { font-size: 2rem; line-height: 1.2; margin-bottom: 15px; }
+            .hero-text h2 { font-size: 0.85rem; }
+            .hero-metrics { flex-direction: column; gap: 10px; }
+            .metric-badge { width: 100%; text-align: center; padding: 10px; }
+            
+            /* Data Flow Animation */
+            #data-animation { padding: 30px 0; }
+            .flow-container { 
+                height: auto; 
+                flex-direction: column; 
+                gap: 20px; 
+                padding: 20px 0;
+            }
+            .flow-node { width: 70px; height: 70px; margin: 10px auto; }
+            .flow-node i { font-size: 1.2rem; }
+            .flow-line { display: none; } /* Hide connecting lines on mobile */
+            
+            /* Section Title */
+            .section-title { font-size: 1.5rem; letter-spacing: 1px; margin-bottom: 30px; }
+            
+            /* Skills Grid */
+            .skills-grid { grid-template-columns: 1fr; gap: 15px; }
+            .skill-card { padding: 20px; border-radius: 8px; }
+            .skill-card h3 { font-size: 1rem; }
+            .skill-tags { gap: 8px; }
+            .tag { font-size: 0.7rem; padding: 4px 8px; }
+            
+            /* Timeline */
+            .timeline { padding-left: 20px; }
+            .timeline::before { left: 0; }
+            .timeline-item { margin-left: 0; margin-bottom: 30px; }
+            .timeline-dot { width: 12px; height: 12px; left: -8px; }
+            .timeline-content { padding: 15px; font-size: 0.9rem; }
+            .timeline-content h3 { font-size: 1rem; }
+            
+            /* Projects */
+            .projects-grid { grid-template-columns: 1fr; gap: 20px; }
+            .project-card { padding: 15px; }
+            .project-title { font-size: 1.1rem; }
+            .project-tabs { flex-wrap: wrap; gap: 8px; }
+            .project-tab { padding: 6px 12px; font-size: 0.75rem; }
+            
+            /* Footer */
+            footer { padding: 30px 0; }
+            .contact-links { gap: 20px; font-size: 1.5rem; }
+            .footer-credits { font-size: 0.7rem; line-height: 1.4; }
+        }
+        
+        /* Extra Small Screens (480px aur neeche) */
+        @media (max-width: 480px) {
+            html { font-size: 12px; }
+            .container { padding: 0 10px; }
+            section { padding: 40px 0; }
+            
+            /* Hero */
+            #hero { margin-top: 80px; }
+            .hero-photo-frame { width: 200px; height: 200px; }
+            .hero-text h1 { font-size: 1.5rem; }
+            .hero-text h2 { font-size: 0.75rem; }
+            
+            .btn { padding: 10px 20px; font-size: 0.8rem; }
+            
+            .section-title { font-size: 1.2rem; }
+            
+            .skill-card { padding: 15px; }
+            .skill-card h3 { font-size: 0.9rem; }
+            
+            .flow-node { width: 60px; height: 60px; }
+            .flow-node i { font-size: 1rem; }
+            
+            .timeline-content { padding: 12px; font-size: 0.8rem; }
+            .timeline-content h3 { font-size: 0.9rem; }
+            
+            .project-card { padding: 12px; }
+            .project-title { font-size: 1rem; }
+            
+            .contact-links { gap: 15px; font-size: 1.3rem; }
+        }
+
         /* --- DATA FLOW ANIMATION SECTION --- */
         #data-animation { background: var(--bg-card); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
         .flow-container { height: 300px; position: relative; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.8rem; text-align: center;}
