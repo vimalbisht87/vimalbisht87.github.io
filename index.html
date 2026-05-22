@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vimal Singh Bisht | Data Architect & BI Innovator</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- CORE TECH THEME VARIABLES --- */
+        :root {
+            --bg-dark: #050509; /* Near Black */
+            --bg-card: #0a0a12; /* Slightly Lighter Black */
+            --primary-neon: #00f2fe; /* Electric Blue */
+            --secondary-neon: #4facfe; /* Deeper Blue */
+            --accent-green: #00ff88; /* Success/Matrix Green */
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+            --font-main: 'Poppins', sans-serif;
+            --font-mono: 'Space Mono', monospace; /* For Tech Look */
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- RESET & BASICS --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; /* Custom Cursor */ }
+        html { scroll-behavior: smooth; font-size: 16px; overflow-x: hidden; }
+        body { font-family: var(--font-main); background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+
+        /* --- CUSTOM TECH CURSOR --- */
+        #cursor { width: 10px; height: 10px; background: var(--primary-neon); border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; mix-blend-mode: difference; transition: transform 0.1s ease; }
+        #cursor-blur { width: 40px; height: 40px; border: 2px solid var(--primary-neon); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; opacity: 0.3; transition: transform 0.15s ease, width 0.3s, height 0.3s; }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container { width: 90%; max-width: 1300px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 100px 0; position: relative; }
+        
+        /* Techy Section Title */
+        .section-title { font-family: var(--font-mono); font-size: 2.5rem; color: var(--primary-neon); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 60px; position: relative; display: inline-block; }
+        .section-title::before { content: '> '; color: var(--accent-green); }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 0; width: 50px; height: 2px; background: var(--accent-green); box-shadow: 0 0 10px var(--accent-green); }
+
+        /* --- NEON GLOW EFFECTS --- */
+        .neon-text { color: var(--primary-neon); text-shadow: 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon); }
+        .neon-border { border: 1px solid var(--primary-neon); box-shadow: 0 0 15px rgba(0, 242, 254, 0.5); }
+        .matrix-text { color: var(--accent-green); font-family: var(--font-mono); }
+
+        /* --- HEADER & NAV --- */
+        header { background: rgba(5, 5, 9, 0.9); backdrop-filter: blur(10px); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
+        .logo span { color: var(--primary-neon); animation: blink 1s infinite; }
+        .nav-links { display: flex; gap: 30px; font-family: var(--font-mono); font-size: 0.9rem; text-transform: uppercase; }
+        .nav-links a:hover { color: var(--primary-neon); text-shadow: 0 0 5px var(--primary-neon); }
+
+        /* --- HERO SECTION --- */
+        #hero { height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; margin-top: 80px;}
+        #hero::before { content: ''; position: absolute; width: 200%; height: 200%; background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%231a1a2e" fill-opacity="0.2"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2v-4h4v-2H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); opacity: 0.5; animation: gridMove 20s linear infinite; z-index: -1; }
+        
+        .hero-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        
+        /* Photo Styling */
+        .hero-photo-frame { position: relative; width: 350px; height: 350px; margin: 0 auto; }
+        .hero-photo-frame::before { content: ''; position: absolute; inset: -15px; border: 2px solid var(--accent-green); opacity: 0.5; animation: rotateFrame 10s linear infinite; }
+        .hero-photo-frame::after { content: ''; position: absolute; inset: -25px; border: 2px solid var(--primary-neon); opacity: 0.3; animation: rotateFrame 15s linear reverse infinite; }
+        
+        .vimal-pic { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; border: 4px solid var(--bg-card); position: relative; z-index: 10; box-shadow: 0 0 30px rgba(0, 242, 254, 0.3); filter: grayscale(50%) contrast(110%); transition: var(--transition); }
+        .hero-photo-frame:hover .vimal-pic { filter: grayscale(0%) contrast(100%); transform: scale(1.02); }
+
+        .hero-text h1 { font-size: 3.5rem; font-weight: 700; line-height: 1.1; margin-bottom: 15px; }
+        .hero-text h2 { font-family: var(--font-mono); font-size: 1.1rem; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 30px; }
+        
+        /* Key Metrics Badges */
+        .hero-metrics { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 40px; }
+        .metric-badge { font-family: var(--font-mono); font-size: 0.8rem; background: rgba(0, 255, 136, 0.1); color: var(--accent-green); padding: 8px 15px; border: 1px solid rgba(0, 255, 136, 0.3); border-radius: 5px; }
+        .metric-badge strong { font-size: 1rem; }
+
+        .btn { display: inline-block; padding: 12px 30px; font-family: var(--font-mono); font-size: 0.9rem; text-transform: uppercase; font-weight: 600; border-radius: 5px; position: relative; overflow: hidden; transition: var(--transition); z-index: 1; }
+        .btn-primary { background: var(--primary-neon); color: var(--bg-dark); box-shadow: 0 0 15px rgba(0, 242, 254, 0.6); }
+        .btn-primary:hover { box-shadow: 0 0 25px rgba(0, 242, 254, 0.9); transform: translateY(-3px); }
+        
+        /* Scroll Down Icon */
+        .scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); color: var(--text-muted); font-size: 1.5rem; animation: drop 1.5s infinite; }
+
+        /* --- DATA FLOW ANIMATION SECTION --- */
+        #data-animation { background: var(--bg-card); border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .flow-container { height: 300px; position: relative; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.8rem; text-align: center;}
+        
+        .flow-node { width: 100px; height: 100px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; transition: var(--transition); z-index: 10; }
+        .flow-node i { font-size: 2rem; color: var(--text-muted); transition: var(--transition); }
+        .flow-node.active { border-color: var(--primary-neon); background: rgba(0, 242, 254, 0.05); box-shadow: 0 0 20px rgba(0, 242, 254, 0.2); }
+        .flow-node.active i { color: var(--primary-neon); text-shadow: 0 0 10px var(--primary-neon); }
+        
+        /* Connecting Lines */
+        .flow-line { position: absolute; height: 2px; background: rgba(255,255,255,0.1); top: 50%; transform: translateY(-50%); z-index: 1; }
+        .flow-line-progress { position: absolute; height: 100%; background: var(--accent-green); width: 0%; box-shadow: 0 0 10px var(--accent-green); }
+
+        /* Data Particles */
+        .data-particle { width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%; position: absolute; top: 50%; transform: translateY(-50%); box-shadow: 0 0 5px var(--accent-green); z-index: 5; opacity: 0; }
+
+        /* --- SKILLS SECTION (Tech Grid) --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .skill-card { background: var(--bg-card); padding: 30px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03); transition: var(--transition); position: relative; overflow: hidden; }
+        .skill-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, var(--primary-neon), transparent); transform: translateX(-100%); transition: 0.5s; }
+        .skill-card:hover::before { transform: translateX(100%); }
+        .skill-card:hover { border-color: rgba(0, 242, 254, 0.2); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .skill-card h3 { font-family: var(--font-mono); color: var(--text-main); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .skill-card h3 i { color: var(--primary-neon); }
+        
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { font-family: var(--font-mono); font-size: 0.75rem; background: rgba(255,255,255,0.05); color: var(--text-muted); padding: 5px 12px; border-radius: 3px; border: 1px solid transparent; transition: var(--transition); }
+        .skill-card:hover .tag { border-color: rgba(255,255,255,0.1); color: var(--text-main); }
+        .tag:hover { background: rgba(0, 242, 254, 0.1); color: var(--primary-neon); border-color: var(--primary-neon); }
+
+        /* --- EXPERIENCE SECTION (Timeline) --- */
+        .timeline { position: relative; max-width: 1000px; margin: 0 auto; padding-left: 50px; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; background: rgba(255,255,255,0.05); }
+        
+        .timeline-item { position: relative; margin-bottom: 60px; }
+        .timeline-marker { position: absolute; left: -59px; top: 5px; width: 20px; height: 20px; background: var(--bg-dark); border: 2px solid var(--accent-green); border-radius: 50%; z-index: 10; box-shadow: 0 0 10px var(--accent-green); }
+        .timeline-item:hover .timeline-marker { background: var(--accent-green); }
+
+        .timeline-content { background: var(--bg-card); padding: 30px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03); transition: var(--transition); }
+        .timeline-item:hover .timeline-content { border-color: rgba(0, 255, 136, 0.2); }
+
+        .time-date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-green); margin-bottom: 5px; display: block; }
+        .time-role { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+        .time-company { font-family: var(--font-mono); font-size: 0.9rem; color: var(--primary-neon); margin-bottom: 15px; display: block; }
+        
+        .time-points { font-size: 0.9rem; color: var(--text-muted); list-style: none; }
+        .time-points li { position: relative; padding-left: 20px; margin-bottom: 8px; }
+        .time-points li::before { content: '▹'; position: absolute; left: 0; color: var(--primary-neon); }
+
+        /* Key Achievements Highlights */
+        .achievement-highlight { color: var(--accent-green); font-weight: 600; }
+
+        /* --- PROJECTS SECTION (Code Blocks look) --- */
+        .projects-wrapper { display: flex; flex-direction: column; gap: 40px; }
+        .project-card { background: var(--bg-card); border-radius: 10px; border: 1px solid rgba(255,255,255,0.03); overflow: hidden; display: grid; grid-template-columns: 1fr 2fr; gap: 0; }
+        
+        /* Left side: Project Info */
+        .project-info { padding: 40px; }
+        .project-ui-mockup { font-family: var(--font-mono); font-size: 0.7rem; color: rgba(0, 255, 136, 0.5); background: rgba(0,0,0,0.3); padding: 15px; border-radius: 5px; border: 1px solid rgba(0, 255, 136, 0.2); margin-bottom: 20px; }
+        .project-ui-mockup span { color: var(--accent-green); }
+
+        .project-card h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--text-main); }
+        .project-client { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; display: block; }
+        .project-card p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px; }
+
+        /* Right side: Code/Config View */
+        .project-tech-view { background: #010103; padding: 40px; font-family: var(--font-mono); font-size: 0.8rem; border-left: 1px solid rgba(255,255,255,0.05); position: relative;}
+        .project-tech-view::before { content: 'CONFIG_VIEW.log'; position: absolute; top: 10px; right: 20px; color: rgba(255,255,255,0.2); font-size: 0.6rem; text-transform: uppercase;}
+        
+        .code-block { color: var(--text-muted); }
+        .code-key { color: var(--secondary-neon); }
+        .code-string { color: var(--accent-green); }
+        .code-comment { color: #555; font-style: italic; }
+
+        /* --- FOOTER & CONTACT --- */
+        footer { background: #010103; padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .contact-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; font-size: 1.5rem; color: var(--text-muted); }
+        .contact-links a:hover { color: var(--primary-neon); transform: scale(1.1); }
+        
+        .footer-credits { font-family: var(--font-mono); font-size: 0.75rem; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+        .footer-credits span { color: var(--accent-green); }
+
+        /* --- KEYFRAMES & ANIMATIONS --- */
+        @keyframes blink { 50% { opacity: 0; } }
+        @keyframes gridMove { from { background-position: 0 0; } to { background-position: 60px 60px; } }
+        @keyframes rotateFrame { to { transform: rotate(360deg); } }
+        @keyframes drop { 0% { opacity: 0; transform: translate(-50%, -10px); } 50% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, 10px); } }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 992px) {
+            .hero-wrapper { grid-template-columns: 1fr; text-align: center; }
+            .hero-photo-frame { width: 280px; height: 280px; margin-bottom: 40px; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-metrics { justify-content: center; }
+            .project-card { grid-template-columns: 1fr; }
+            .project-tech-view { border-left: none; border-top: 1px solid rgba(255,255,255,0.05); }
+        }
+        @media (max-width: 768px) {
+            .section-title { font-size: 2rem; }
+            .nav-links { display: none; } /* Simplified for mobile */
+            .flow-container { flex-direction: column; height: auto; gap: 30px; padding: 50px 0; }
+            .flow-line { display: none; }
+            .timeline { padding-left: 30px; }
+            .timeline-marker { left: -39px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">vimalbisht87@gmail.com<span>_</span></div>
+                <ul class="nav-links">
+                    <li><a href="#hero">// Home</a></li>
+                    <li><a href="#skills">// Stack</a></li>
+                    <li><a href="#experience">// Timeline</a></li>
+                    <li><a href="#projects">// Projects</a></li>
+                </ul>
+                <a href="mailto:vimalbisht87@gmail.com" class="btn btn-primary btn-sm">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container hero-wrapper">
+            <div class="hero-photo-frame" data-gsap="fade-right">
+                <img src="vimal_pic.jpg" alt="Vimal Singh Bisht" class="vimal-pic">
+            </div>
+            <div class="hero-text" data-gsap="fade-left">
+                <div class="matrix-text" style="margin-bottom: 10px;">&gt; Establishing connection... STATUS: ONLINE</div>
+                <h1>Vimal Singh Bisht</h1>
+                <h2>Data Engineer Consultant | BI & Dashboard Developer | SQL Expert</h2>
+                
+                <div class="hero-metrics">
+                    <span class="metric-badge">EXP: <strong>5+ Yrs</strong></span>
+                    <span class="metric-badge">EFFORT REDUCED: <strong class="achievement-highlight">90%</strong></span>
+                    <span class="metric-badge">PERFORMANCE: <strong class="achievement-highlight">+40%</strong></span>
+                    <span class="metric-badge">LOCATIONS SYNCED: <strong>15+</strong></span>
+                </div>
+                
+                <p style="color: var(--text-muted); margin-bottom: 30px; max-width: 500px;">Turning complex data chaos into actionable intelligence. Specialist in designing <span class="neon-text">zero-touch ETL pipelines</span>, scalable data warehouses, and interactive Power BI architectures.</p>
+                
+                <div class="hero-btns">
+                    <a href="#projects" class="btn btn-primary">View Deployments</a>
+                    <a href="#experience" class="btn btn-secondary" style="color: var(--primary-neon); margin-left: 15px;">// Read Log</a>
+                </div>
+            </div>
+        </div>
+        <i class="fas fa-chevron-down scroll-down"></i>
+    </section>
+
+    <section id="data-animation">
+        <div class="container">
+            <div class="matrix-text" style="text-align: center; margin-bottom: 20px;">// LIVE_DATA_SYSTEM_MOCKUP.exe</div>
+            <div class="flow-container" id="gsap-flow">
+                
+                <div class="flow-line" style="width: 25%; left: 10%;"><div class="flow-line-progress"></div><div class="data-particle" style="animation-delay: 0s;"></div><div class="data-particle" style="animation-delay: 0.5s;"></div></div>
+                <div class="flow-line" style="width: 20%; left: 35%;"><div class="flow-line-progress"></div><div class="data-particle" style="animation-delay: 0.2s;"></div></div>
+                <div class="flow-line" style="width: 20%; left: 55%;"><div class="flow-line-progress"></div><div class="data-particle" style="animation-delay: 0.1s;"></div><div class="data-particle" style="animation-delay: 0.6s;"></div></div>
+                <div class="flow-line" style="width: 15%; left: 75%;"><div class="flow-line-progress"></div><div class="data-particle" style="animation-delay: 0.3s;"></div></div>
+
+                <div class="flow-node active" id="node-raw"><i class="fas fa-server"></i><span>Raw Data<br>(Multi-Source)</span></div>
+                <div class="flow-node" id="node-etl"><i class="fas fa-cogs"></i><span>Python<br>ETL Engine</span></div>
+                <div class="flow-node" id="node-dw"><i class="fas fa-database"></i><span>SQL Server<br>Warehouse</span></div>
+                <div class="flow-node" id="node-bi"><i class="fas fa-chart-bar"></i><span>Power BI<br>Semantic Model</span></div>
+                <div class="flow-node" id="node-report"><i class="fas fa-file-contract"></i><span>CEO<br>Report View</span></div>
+            </div>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Core competence: Architecting automated systems that ingest raw data (Oracle, MSSQL, PostgreSQL), execute complex transformations nightly, and deliver refreshed <span class="neon-text">business dashboards by 5:30 AM</span> without manual intervention.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Stack</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-card" data-gsap="fade-up">
+                    <h3><i class="fas fa-chart-line"></i> BI & Reporting</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">Designing immersive analytical experiences.</p>
+                    <div class="skill-tags">
+                        <span class="tag">Power BI Desktop/Service</span>
+                        <span class="tag">DAX Expert</span>
+                        <span class="tag">Paginated Reports</span>
+                        <span class="tag">Apache Superset</span>
+                        <span class="tag">Metabase</span>
+                        <span class="tag">KPI Dashboards</span>
+                        <span class="tag">MIS Reporting</span>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-gsap="fade-up" data-gsap-delay="100">
+                    <h3><i class="fas fa-database"></i> Data Engineering</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">Building robust pipelines and warehouses.</p>
+                    <div class="skill-tags">
+                        <span class="tag">SQL Server (Expert)</span>
+                        <span class="tag">PostgreSQL</span>
+                        <span class="tag">Oracle Hospitality</span>
+                        <span class="tag">Data Modeling</span>
+                        <span class="tag">Star/Snowflake Schema</span>
+                        <span class="tag">Stored Procedures</span>
+                        <span class="tag">ETL/ELT</span>
+                    </div>
+                </div>
+
+                <div class="skill-card" data-gsap="fade-up" data-gsap-delay="200">
+                    <h3><i class="fas fa-robot"></i> Automation & Coding</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">Scripting efficiency into existence.</p>
+                    <div class="skill-tags">
+                        <span class="tag">Python (Data/ETL)</span>
+                        <span class="tag">Task Scheduling</span>
+                        <span class="tag">API Integration</span>
+                        <span class="tag">Email Automation</span>
+                        <span class="tag">Telegram Notifications</span>
+                        <span class="tag">Batch Scripting</span>
+                    </div>
+                </div>
+
+                 <div class="skill-card" data-gsap="fade-up" data-gsap-delay="300">
+                    <h3><i class="fas fa-industry"></i> Domains & Infra</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px;">Operationalizing tech in real-world scenarios.</p>
+                    <div class="skill-tags">
+                        <span class="tag">Restaurant Chains</span>
+                        <span class="tag">E-commerce</span>
+                        <span class="tag">Retail POS</span>
+                        <span class="tag">Disaster Recovery</span>
+                        <span class="tag">Server Setup (Win/Lin)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" style="background: #010103;">
+        <div class="container">
+            <h2 class="section-title">Career Log</h2>
+            <div class="timeline">
+                
+                <div class="timeline-item" data-gsap="fade-left">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="time-date">JAN 2024 - PRESENT // Delhi/Remote</span>
+                        <h3 class="time-role">BI Developer & Data Consultant (Freelance)</h3>
+                        <span class="time-company">VAPY esteqinfo Pvt Ltd (Clients: Dubai & India)</span>
+                        <ul class="time-points">
+                            <li>Orchestrated complete project lifecycle for multi-location restaurant chains, from infrastructure setup to final dashboard delivery.</li>
+                            <li>Engineered <span class="achievement-highlight">dedicated reporting servers</span> from scratch, decoupling analytical workloads from live production POS.</li>
+                            <li>Implemented Python-based ETL pipelines, reducing daily reporting effort by <span class="achievement-highlight neon-text">90%</span>.</li>
+                            <li>Developed intelligent alerting systems (Email/Telegram) for ETL/Backup anomalies.</li>
+                            <li>Unified Oracle, MSSQL, PostgreSQL, and MySQL sources into a <span class="achievement-highlight">centralized reporting layer</span>.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-gsap="fade-left">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="time-date">MAY 2019 - AUG 2023 // Delhi</span>
+                        <h3 class="time-role">Associate Consultant - Oracle Hospitality</h3>
+                        <span class="time-company">Path Infotech Limited</span>
+                        <ul class="time-points">
+                            <li>Provided L2 support for Oracle MICROS Simphony POS systems pan-India.</li>
+                            <li>Managed critical POS upgrades, database migrations, and zero-downtime deployments.</li>
+                            <li>Acted as technical liaison, translating client reporting needs into technical specifications.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item" data-gsap="fade-left">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="time-date">DEC 2017 - MAY 2019 // Delhi</span>
+                        <h3 class="time-role">POS Support Engineer</h3>
+                        <span class="time-company">Techryde Pvt Ltd</span>
+                        <ul class="time-points">
+                            <li>Managed IT infrastructure and network support for hospitality applications.</li>
+                            <li>Handled server backups, system installations, and access management.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Deployment Registry</h2>
+            <div class="projects-wrapper">
+                
+                <div class="project-card" data-gsap="fade-up">
+                    <div class="project-info">
+                        <div class="project-ui-mockup">
+                            <div>FILE: limetree_dubai.ref</div>
+                            <div>--------------------</div>
+                            <div>&gt; LOCATIONS: <span class="achievement-highlight">15</span></div>
+                            <div>&gt; SRC: MICROS 3700</div>
+                            <div>&gt; STATUS: <span class="neon-text">LIVE</span></div>
+                        </div>
+                        <h3>Centralized BI System</h3>
+                        <span class="project-client">The Limetree Cafe, Dubai</span>
+                        <p>Eliminated manual Excel consolidation by building a centralized SQL Server data warehouse with automated nightly data ingestion, and developed 10+ Power BI dashboards for key KPIs such as Daily Sales, Menu Mix, and Wastage. Automated executive reporting to deliver scheduled business insights before business hours, enabling faster and data-driven decision-making.</p>
+                        <div class="skill-tags">
+                            <span class="tag">SQL Server</span>
+                            <span class="tag">Python ETL</span>
+                            <span class="tag">Power BI</span>
+                        </div>
+                    </div>
+                    <div class="project-tech-view">
+                        <pre class="code-block">
+<span class="code-comment"># ETL Config Extract</span>
+{
+  <span class="code-key">"source_db"</span>: <span class="code-string">"Oracle_MICROS_3700"</span>,
+  <span class="code-key">"target_dw"</span>: <span class="code-string">"MSSQL_Warehouse"</span>,
+  <span class="code-key">"locations_count"</span>: <span class="code-string">"15"</span>,
+  <span class="code-key">"schedule"</span>: <span class="code-string">"02:00_AM_Daily"</span>,
+  <span class="code-key">"transformations"</span>: [
+    <span class="code-string">"dim_menu_mapping.py"</span>,
+    <span class="code-string">"fact_sales_consolidation.sql"</span>
+  ],
+  <span class="code-key">"outputs"</span>: [
+    <span class="code-string">"PBI_Service_Refresh"</span>,
+    <span class="code-string">"CEO_PDF_Email"</span>
+  ]
+}
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="project-card" data-gsap="fade-up">
+                    <div class="project-info">
+                        <div class="project-ui-mockup">
+                            <div>FILE: restricted_pos.ref</div>
+                            <div>--------------------</div>
+                            <div>&gt; ACCESS: <span class="achievement-highlight" style="color:red">DENIED</span></div>
+                            <div>&gt; METHOD: Decode Raw CAPS</div>
+                            <div>&gt; STATUS: <span class="neon-text">SUCCESS</span></div>
+                        </div>
+                        <h3>Restricted Data Access & Decoding</h3>
+                        <span class="project-client">Confidential POS Client</span>
+                        <p>Faced with a restricted cloud DB vendor denying direct access, identified alternative data path via on-premise CAPS server. Analyzed and <span class="neon-text">decoded proprietary raw POS transaction data structure</span>, mapping records against master config to build custom SQL reporting logic.</p>
+                        <div class="skill-tags">
+                            <span class="tag">Data Reverse Eng</span>
+                            <span class="tag">Python</span>
+                            <span class="tag">Oracle Simphony</span>
+                        </div>
+                    </div>
+                    <div class="project-tech-view">
+                        <pre class="code-block">
+<span class="code-comment">/* SQL Transformation Snippet */</span>
+<span class="code-key">WITH</span> RawData <span class="code-key">AS</span> (
+  <span class="code-key">SELECT</span> 
+    TransactionID, 
+    <span class="code-comment">/* Decoding raw binary string */</span>
+    <span class="code-key">CAST</span>(SUBSTRING(RawBlob, 24, 8) <span class="code-key">AS</span> DECIMAL(10,2)) <span class="code-key">AS</span> NetSales
+  <span class="code-key">FROM</span> dbo.CAPS_Transactions
+)
+<span class="code-key">SELECT</span> TransactionID, NetSales
+<span class="code-key">INTO</span> dbo.Decoded_Sales
+<span class="code-key">FROM</span> RawData;
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="matrix-text" style="margin-bottom: 20px;">&gt; Initiate data exchange protocol?</div>
+            <div class="contact-links">
+                <a href="mailto:vimalbisht87@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <span class="neon-text" style="font-size: 1.1rem; font-family:var(--font-mono)">+91 7503583531</span>
+            </div>
+            <div class="footer-credits">
+                SYS_ADMIN: Vimal Singh Bisht // 2009-2024 // Education: B.A. (Pass) DU // <span class="matrix-text">TERMINAL_ACTIVE</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Custom Tech Cursor ---
+        const cursor = document.querySelector('#cursor');
+        const cursorBlur = document.querySelector('#cursor-blur');
+
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+            gsap.to(cursorBlur, { x: e.clientX - 20, y: e.clientY - 20, duration: 0.2 });
+        });
+
+        // Hover Effect for Cursor
+        document.querySelectorAll('a, .btn, .skill-card, .timeline-content').forEach(link => {
+            link.addEventListener('mouseover', () => {
+                cursorBlur.style.transform = 'scale(1.5)';
+                cursorBlur.style.borderColor = 'white';
+            });
+            link.addEventListener('mouseleave', () => {
+                cursorBlur.style.transform = 'scale(1)';
+                cursorBlur.style.borderColor = 'var(--primary-neon)';
+            });
+        });
+
+        // --- GSAP ScrollTrigger Animations ---
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Fade in animations
+        document.querySelectorAll('[data-gsap]').forEach(el => {
+            let effect = el.getAttribute('data-gsap');
+            let delay = el.getAttribute('data-gsap-delay') || 0;
+            
+            let config = {
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                duration: 1,
+                delay: delay / 1000
+            };
+
+            if (effect === 'fade-up') config.y = 50;
+            if (effect === 'fade-right') config.x = -50;
+            if (effect === 'fade-left') config.x = 50;
+
+            gsap.from(el, config);
+        });
+
+        // --- Live Data Flow Animation Control ---
+        const nodes = document.querySelectorAll('.flow-node');
+        const lines = document.querySelectorAll('.flow-line-progress');
+        const particles = document.querySelectorAll('.data-particle');
+
+        const tlFlow = gsap.timeline({ repeat: -1, delay: 1 });
+
+        // Raw -> ETL
+        tlFlow.to(nodes[1], { className: 'flow-node active', duration: 0.3 })
+              .to(lines[0], { width: '100%', duration: 1, ease: 'none' }, '-=0.3')
+              .to(particles[0], { opacity: 1, x: '250px', duration: 1, ease: 'none' }, '-=1') // Simulated particle move
+              .to(particles[1], { opacity: 1, x: '250px', duration: 1, ease: 'none' }, '-=0.8');
+
+        // ETL -> DW
+        tlFlow.to(nodes[2], { className: 'flow-node active', duration: 0.3 })
+              .to(lines[1], { width: '100%', duration: 1, ease: 'none' }, '-=0.3')
+              .to(particles[2], { opacity: 1, x: '200px', duration: 1, ease: 'none' }, '-=1');
+
+        // DW -> BI
+        tlFlow.to(nodes[3], { className: 'flow-node active', duration: 0.3 })
+              .to(lines[2], { width: '100%', duration: 1, ease: 'none' }, '-=0.3')
+              .to(particles[3], { opacity: 1, x: '200px', duration: 1, ease: 'none' }, '-=1')
+              .to(particles[4], { opacity: 1, x: '200px', duration: 1, ease: 'none' }, '-=0.7');
+
+        // BI -> Report
+        tlFlow.to(nodes[4], { className: 'flow-node active', duration: 0.3 })
+              .to(lines[3], { width: '100%', duration: 0.8, ease: 'none' }, '-=0.3')
+              .to(particles[5], { opacity: 1, x: '150px', duration: 0.8, ease: 'none' }, '-=0.8');
+
+        tlFlow.to({}, {duration: 2}); // Pause at the end
+
+        // ScrollTrigger to play animation only when visible
+        ScrollTrigger.create({
+            trigger: "#data-animation",
+            start: "top 70%",
+            onEnter: () => tlFlow.play(),
+            onLeaveBack: () => tlFlow.pause()
+        });
+    </script>
+</body>
+</html>
